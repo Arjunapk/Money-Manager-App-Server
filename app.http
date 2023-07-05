@@ -1,0 +1,59 @@
+GET http://localhost:5000
+###
+
+POST http://localhost:5000/signup
+Content-Type: application/json
+
+{
+    "username": "scb_12122",
+    "password": "scb1212",
+    "name": "Subash P",
+    "gender": "Male",
+    "dob": "25/03/2000",
+    "email": "scb@gmail.com",
+    "mobile": "8015298158"
+}
+###
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "scb_1212",
+    "password": "scb1212"
+}
+###
+
+# GET http://localhost:5000/users
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNjYl8xMjEyIiwiaWF0IjoxNjg4NTQ3MTY3fQ.zs45IZBig77t_a6spakLEGcWMEJsK9PSwPuUs64MiRM
+# ###
+
+GET http://localhost:5000/transactions
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNjYl8xMjEyIiwiaWF0IjoxNjg4NTQ3MTY3fQ.zs45IZBig77t_a6spakLEGcWMEJsK9PSwPuUs64MiRM
+###
+
+POST  http://localhost:5000/transactions
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNjYl8xMjEyIiwiaWF0IjoxNjg4NTQ3MTY3fQ.zs45IZBig77t_a6spakLEGcWMEJsK9PSwPuUs64MiRM
+Content-Type: application/json
+
+{
+    "type": "Income",
+    "title": "salary",
+    "amount": "5000"
+}
+###
+
+PUT http://localhost:5000/transactions/5cfa2fc8-e543-4fce-99c6-e64c1a63e046
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNjYl8xMjEyIiwiaWF0IjoxNjg4NTQzNjM2fQ.-n36QPAcTdnIzC6Zw75JWcLBZatRYI5PS_c7-zDQ5R4
+Content-Type: application/json
+
+{
+    "type": "Expenses",
+    "title": "fund",
+    "amount": "15000"
+}
+###
+
+DELETE http://localhost:5000/transactions/5cfa2fc8-e543-4fce-99c6-e64c1a63e046
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNjYl8xMjEyIiwiaWF0IjoxNjg4NTQzNjM2fQ.-n36QPAcTdnIzC6Zw75JWcLBZatRYI5PS_c7-zDQ5R4
+###
