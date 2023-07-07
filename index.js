@@ -96,6 +96,13 @@ app.get("/users", async (request, response) => {
     response.send(users)
 })
 
+app.delete("/users/:userId", async (request, response) => {
+    const {userId} = request.params
+    const getDeleteUserQuery = `DELETE FROM users WHERE username='${userId}'`
+    await database.run(getDeleteUserQuery)
+    response.send({success_msg: "User Deleted Successfully"})
+})
+
 app.get("/transactions", authenticateToken, async (request, response) => {
     const {username} = request
     const getUserTransactionsQuery = `SELECT * FROM transactions WHERE username='${username}';`
