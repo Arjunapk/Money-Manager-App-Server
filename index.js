@@ -90,7 +90,7 @@ const authenticateToken = (request, response, next) => {
     }
 };
 
-app.get("/users", authenticateToken, async (request, response) => {
+app.get("/users", async (request, response) => {
     const getUsersQuery = `SELECT * FROM users`
     const users = await database.all(getUsersQuery)
     response.send(users)

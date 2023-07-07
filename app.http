@@ -25,7 +25,6 @@ Content-Type: application/json
 ###
 
 GET http://localhost:5000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNjYl8xMjEyIiwiaWF0IjoxNjg4NTQ3MTY3fQ.zs45IZBig77t_a6spakLEGcWMEJsK9PSwPuUs64MiRM
 ###
 
 GET http://localhost:5000/transactions
