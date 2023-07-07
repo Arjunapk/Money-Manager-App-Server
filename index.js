@@ -31,7 +31,7 @@ const initializeDBANDServer = async () => {
 }
 initializeDBANDServer()
 
-app.get("/", (request, response) => response.send(JSON.stringify("Hello from Express")))
+app.get("/", (request, response) => response.send(JSON.stringify("Hello Money Manager App")))
 
 app.post("/signup", async (request, response) => {
     const {username, password, name, gender, dob, email, mobile} = request.body
@@ -53,7 +53,7 @@ app.post("/login", async (request, response) => {
     const getUserQuery = `SELECT * FROM users WHERE username='${username}'`
     const user = await database.get(getUserQuery)
     if (user === undefined) {
-        response.status = 400
+        response.status(400)
         response.send(JSON.stringify("Invalid User"))
     } else {
         const isPasswordMatched = await bcrypt.compare(password, user.password)
@@ -62,7 +62,7 @@ app.post("/login", async (request, response) => {
             const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN")
             response.send({jwtToken})
         } else {
-            response.status = 400
+            response.status(400)
             response.send(JSON.stringify("Invalid Password"))
         }
     }
