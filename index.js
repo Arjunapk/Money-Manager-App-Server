@@ -41,10 +41,10 @@ app.post("/signup", async (request, response) => {
         const encryptPassword = await bcrypt.hash(password, 5)
         const createUserQuery = `INSERT INTO users (username, password, name, gender, dob, email, mobile) VALUES ('${username}', '${encryptPassword}', '${name}', '${gender}', '${dob}', '${email}', '${mobile}')`    
         await database.run(createUserQuery)
-        response.send(JSON.stringify("User created successfully"))
+        response.send({success_msg: "User created successfully"})
     } else {
         response.status = 400
-        response.send(JSON.stringify("Username already exits"))
+        response.send({error_msg: "Username already exits"})
     }
 })
 
@@ -54,16 +54,16 @@ app.post("/login", async (request, response) => {
     const user = await database.get(getUserQuery)
     if (user === undefined) {
         response.status(400)
-        response.send(JSON.stringify("Invalid User"))
+        response.send({error_msg: "Invalid User"})
     } else {
         const isPasswordMatched = await bcrypt.compare(password, user.password)
         if (isPasswordMatched) {
             const payload = {username}
             const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN")
-            response.send({jwtToken})
+            response.send({jwt_token: jwtToken})
         } else {
             response.status(400)
-            response.send(JSON.stringify("Invalid Password"))
+            response.send({error_msg: "Invalid Password"})
         }
     }
 })
@@ -76,12 +76,12 @@ const authenticateToken = (request, response, next) => {
     }
     if (jwtToken === undefined) {
         response.status(401);
-        response.send("JWT Token is doesn't exits");
+        response.send({error_msg: "JWT Token is doesn't exits"})
     } else {
         jwt.verify(jwtToken, "MY_SECRET_TOKEN", async (error, payload) => {
             if (error) {
                 response.status(401)
-                response.send("Invalid JWT Token")
+                response.send({error_msg: "Invalid JWT Token"})
             } else {
                 request.username = payload.username
                 next()
@@ -108,7 +108,7 @@ app.post("/transactions", authenticateToken, async (request, response) => {
     const {type, title, amount} = request.body
     const createUserTransactionQuery = `INSERT INTO transactions (transaction_id, username, type, title, amount) VALUES ('${v4()}', '${username}', '${type}', '${title}', '${amount}');`
     await database.run(createUserTransactionQuery)
-    response.send(JSON.stringify("Transaction added Successfully"))
+    response.send({success_msg: "Transaction added Successfully"})
 })
 
 app.put("/transactions/:transactionId", authenticateToken, async (request, response) => {
@@ -116,12 +116,12 @@ app.put("/transactions/:transactionId", authenticateToken, async (request, respo
     const {type, title, amount} = request.body
     const createUserTransactionQuery = `UPDATE transactions SET type='${type}', title='${title}', amount='${amount}' WHERE transaction_id='${transactionId}';`
     await database.run(createUserTransactionQuery)
-    response.send(JSON.stringify("Transaction Updated Successfully"))
+    response.send({success_msg: "Transaction Updated Successfully"})
 })
 
 app.delete("/transactions/:transactionId", authenticateToken, async (request, response) => {
     const {transactionId} = request.params
     const createUserTransactionQuery = `DELETE FROM transactions WHERE transaction_id='${transactionId}';`
     await database.run(createUserTransactionQuery)
-    response.send(JSON.stringify("Transaction Deleted Successfully"))
+    response.send({success_msg: "Transaction Deleted Successfully"})
 })
