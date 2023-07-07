@@ -43,7 +43,7 @@ app.post("/signup", async (request, response) => {
         await database.run(createUserQuery)
         response.send({success_msg: "User created successfully"})
     } else {
-        response.status = 400
+        response.status(400)
         response.send({error_msg: "Username already exits"})
     }
 })
