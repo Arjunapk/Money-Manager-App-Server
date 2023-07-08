@@ -60,7 +60,7 @@ app.post("/login", async (request, response) => {
         if (isPasswordMatched) {
             const payload = {username}
             const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN")
-            response.send({jwt_token: jwtToken})
+            response.send({jwt_token: jwtToken, username})
         } else {
             response.status(400)
             response.send({error_msg: "Invalid Password"})
