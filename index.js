@@ -56,11 +56,13 @@ app.post("/login", async (request, response) => {
         response.status(400)
         response.send({error_msg: "Invalid User"})
     } else {
+        const getUsersQuery = `SELECT * FROM users WHERE username='${username}'`
+        const userDetails = await database.get(getUsersQuery)
         const isPasswordMatched = await bcrypt.compare(password, user.password)
         if (isPasswordMatched) {
             const payload = {username}
             const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN")
-            response.send({jwt_token: jwtToken, username})
+            response.send({jwt_token: jwtToken, user_details: userDetails})
         } else {
             response.status(400)
             response.send({error_msg: "Invalid Password"})
