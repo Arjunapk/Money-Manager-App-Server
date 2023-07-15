@@ -36,9 +36,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNjY
 Content-Type: application/json
 
 {
-    "type": "Income",
+    "type": "INCOME",
     "title": "salary",
-    "amount": "5000"
+    "amount": "5000",
+    "date": "2023-07-15",
+    "description": "June month salary"
 }
 ###
 

@@ -114,8 +114,8 @@ app.get("/transactions", authenticateToken, async (request, response) => {
 
 app.post("/transactions", authenticateToken, async (request, response) => {
     const {username} = request
-    const {type, title, amount} = request.body
-    const createUserTransactionQuery = `INSERT INTO transactions (transaction_id, username, type, title, amount) VALUES ('${v4()}', '${username}', '${type}', '${title}', '${amount}');`
+    const {type, title, amount, date, description} = request.body
+    const createUserTransactionQuery = `INSERT INTO transactions (transaction_id, username, type, title, amount, date, description) VALUES ('${v4()}', '${username}', '${type}', '${title}', '${amount}', '${date}', '${description}');`
     await database.run(createUserTransactionQuery)
     response.send({success_msg: "Transaction added Successfully"})
 })
