@@ -31,7 +31,7 @@ const initializeDBANDServer = async () => {
 }
 initializeDBANDServer()
 
-app.get("/", (request, response) => response.send(JSON.stringify("Hello Money Manager App")))
+app.get("/", (request, response) => response.send(JSON.stringify("Hello Money Manager Application")))
 
 app.post("/signup", async (request, response) => {
     const {username, password, name, gender, dob, email, mobile} = request.body
