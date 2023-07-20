@@ -122,8 +122,8 @@ app.post("/transactions", authenticateToken, async (request, response) => {
 
 app.put("/transactions/:transactionId", authenticateToken, async (request, response) => {
     const {transactionId} = request.params
-    const {type, title, amount} = request.body
-    const createUserTransactionQuery = `UPDATE transactions SET type='${type}', title='${title}', amount='${amount}' WHERE transaction_id='${transactionId}';`
+    const {type, title, amount, date, description} = request.body
+    const createUserTransactionQuery = `UPDATE transactions SET type='${type}', title='${title}', amount='${amount}', date='${date}', description='${description}' WHERE transaction_id='${transactionId}';`
     await database.run(createUserTransactionQuery)
     response.send({success_msg: "Transaction Updated Successfully"})
 })
